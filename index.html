@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B0F19">
+    <title>Susu Quincenal FANB - Estilo Fintech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html { color-scheme: dark; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0B0F19; color: #F3F4F6; }
+        .glass-card { background: rgba(17, 24, 39, 0.75); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-header { background: rgba(11, 15, 25, 0.85); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+        .campo { width: 100%; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 0.75rem; padding: 0.625rem 0.875rem; }
+        .campo:focus { outline: none; border-color: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.35); }
+        .campo:disabled { opacity: 0.55; cursor: not-allowed; }
+        button:focus-visible, a:focus-visible { outline: 2px solid #34d399; outline-offset: 2px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+    <header class="glass-header sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex justify-between items-center gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 shrink-0 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-900/30 text-white" aria-hidden="true">
+                    <i class="fa-solid fa-shield-halved text-lg"></i>
+                </div>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-sm font-extrabold tracking-tight text-white whitespace-nowrap">SUSU FANB</h1>
+                        <span class="text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-mono uppercase font-bold">Oficial</span>
+                    </div>
+                    <p class="hidden sm:block text-xs text-slate-400 truncate">Control Quincenal de Turnos y Recaudación</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+                <button type="button" onclick="abrirModalRegistro()" aria-label="Inscribirme" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-md shadow-emerald-900/20 flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus" aria-hidden="true"></i> <span class="hidden sm:inline">Inscribirme</span>
+                </button>
+                <button type="button" onclick="abrirModalAdmin()" id="btnAdminLabel" aria-label="Acceso de administrador" class="glass-card hover:bg-slate-800 text-slate-200 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-emerald-400" id="iconAdminState" aria-hidden="true"></i> <span id="textAdminState" class="hidden sm:inline">Admin</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section aria-label="Datos de pago móvil" class="bg-gradient-to-r from-emerald-950/40 via-slate-900 to-teal-950/40 border-b border-slate-800/80 py-2.5 px-4">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-slate-300">
+            <div class="flex items-center gap-2 flex-wrap justify-center md:justify-start">
+                <span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i> Pago Móvil:</span>
+                <span class="bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700/50">Banesco (0134)</span>
+                <span class="bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700/50 font-mono font-bold text-white">04226415722</span>
+                <span class="bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700/50 font-mono font-bold text-white">C.I: 27136499</span>
+            </div>
+            <a href="https://wa.me/584226415722" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1 rounded">
+                <i class="fa-brands fa-whatsapp text-sm" aria-hidden="true"></i> Soporte Oficial
+            </a>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <section class="glass-card p-5 rounded-3xl flex flex-col justify-between relative overflow-hidden" aria-labelledby="tituloCiclo">
+                <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl" aria-hidden="true"></div>
+                <div>
+                    <div class="flex justify-between items-center">
+                        <span id="tituloCiclo" class="text-xs uppercase font-bold tracking-wider text-emerald-400">Ciclo Quincenal</span>
+                        <i class="fa-solid fa-calendar-days text-slate-500 text-sm" aria-hidden="true"></i>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-white mt-1" id="lblQuincenaActiva">Quincena 16</h2>
+                    <p class="text-xs text-slate-400 mt-1">Turno en curso: <strong id="lblTurnoActual" class="text-emerald-300 font-mono">#1 de 20</strong></p>
+                </div>
+                <div class="mt-5 flex gap-2 relative">
+                    <button type="button" onclick="cambiarQuincena(16)" id="btnQ16" aria-pressed="true" class="flex-1 py-2 text-xs font-bold rounded-xl transition">Q. 16</button>
+                    <button type="button" onclick="cambiarQuincena(30)" id="btnQ30" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-xl transition">Q. 30</button>
+                </div>
+            </section>
+
+            <section class="glass-card p-5 rounded-3xl flex flex-col justify-between relative overflow-hidden" aria-labelledby="tituloPote">
+                <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-xl" aria-hidden="true"></div>
+                <div>
+                    <div class="flex justify-between items-center">
+                        <span id="tituloPote" class="text-xs uppercase font-bold tracking-wider text-amber-400">Pote Recaudado</span>
+                        <i class="fa-solid fa-vault text-slate-500 text-sm" aria-hidden="true"></i>
+                    </div>
+                    <div class="flex items-baseline gap-2 mt-1">
+                        <span class="text-3xl font-extrabold text-white" id="lblPoteTotal">$0.00</span>
+                        <span class="text-xs text-slate-400">Cuotas al día</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">Beneficiario turno: <strong id="lblBeneficiarioTurno" class="text-emerald-300 break-words">-</strong></p>
+                </div>
+                <div class="mt-5 grid grid-cols-3 gap-1.5 text-center text-xs relative">
+                    <div class="bg-slate-900/60 border border-slate-800/80 p-2 rounded-xl">
+                        <span class="text-slate-400 block">Solventes</span>
+                        <strong id="lblSolventesCount" class="text-emerald-400 text-sm font-bold">0</strong>
+                    </div>
+                    <div class="bg-slate-900/60 border border-slate-800/80 p-2 rounded-xl">
+                        <span class="text-slate-400 block">Pendientes</span>
+                        <strong id="lblPendientesCount" class="text-amber-400 text-sm font-bold">0</strong>
+                    </div>
+                    <div class="bg-slate-900/60 border border-slate-800/80 p-2 rounded-xl">
+                        <span class="text-slate-400 block">En Mora</span>
+                        <strong id="lblMorasCount" class="text-rose-400 text-sm font-bold">0</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card p-5 rounded-3xl flex flex-col justify-between relative overflow-hidden" aria-labelledby="tituloControl">
+                <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-rose-500/10 rounded-full blur-xl" aria-hidden="true"></div>
+                <div>
+                    <div class="flex justify-between items-center">
+                        <span id="tituloControl" class="text-xs uppercase font-bold tracking-wider text-rose-400">Control Financiero</span>
+                        <i class="fa-solid fa-chart-line text-slate-500 text-sm" aria-hidden="true"></i>
+                    </div>
+                    <p class="text-xs text-slate-300 mt-2 font-medium leading-relaxed">Turnos rotativos del 1 al 20. Cada integrante reporta su pago móvil y el administrador lo valida antes de marcarlo como solvente.</p>
+                </div>
+                <div class="mt-4 text-xs text-emerald-400/90 font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Datos guardados en este dispositivo
+                </div>
+            </section>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 glass-card p-4 rounded-2xl">
+            <button type="button" onclick="generarRelacionWhatsApp()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-emerald-900/30">
+                <i class="fa-brands fa-whatsapp text-sm" aria-hidden="true"></i> Generar Relación para WhatsApp
+            </button>
+            <div id="adminControlsContainer" class="hidden items-center gap-2 flex-wrap">
+                <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-xl font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Admin Activo
+                </span>
+                <button type="button" onclick="cerrarCiclo()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold px-3 py-2 rounded-xl transition">
+                    <i class="fa-solid fa-forward-step mr-1" aria-hidden="true"></i> Cerrar ciclo
+                </button>
+                <button type="button" onclick="exportarDatos()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold px-3 py-2 rounded-xl transition">
+                    <i class="fa-solid fa-download mr-1" aria-hidden="true"></i> Respaldo JSON
+                </button>
+                <button type="button" onclick="cerrarSesionAdmin()" class="bg-rose-600/80 hover:bg-rose-600 text-white text-xs font-semibold px-3 py-2 rounded-xl transition">
+                    <i class="fa-solid fa-right-from-bracket mr-1" aria-hidden="true"></i> Salir
+                </button>
+            </div>
+        </div>
+
+        <section id="listaIntegrantes" class="glass-card rounded-3xl overflow-hidden shadow-2xl" aria-labelledby="tituloIntegrantes">
+            <div class="px-4 sm:px-6 py-4 border-b border-slate-800 flex flex-wrap justify-between items-center gap-2">
+                <h3 id="tituloIntegrantes" class="font-bold text-white text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-users text-emerald-400" aria-hidden="true"></i> Relación de Integrantes y Turnos
+                </h3>
+                <span class="text-xs font-mono text-slate-400 bg-slate-900/60 px-3 py-1 rounded-full border border-slate-800" id="lblTotalParticipantes">0 inscritos</span>
+            </div>
+
+            <div id="estadoVacio" class="hidden px-6 py-10 text-center space-y-3">
+                <p class="text-sm font-semibold text-white">Aún no hay integrantes inscritos</p>
+                <p class="text-xs text-slate-400">Inscríbase para reservar uno de los 20 turnos del susu.</p>
+                <button type="button" onclick="abrirModalRegistro()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition">Inscribirme</button>
+            </div>
+
+            <ul id="listaParticipantesMovil" class="md:hidden divide-y divide-slate-800/60"></ul>
+
+            <div id="contenedorTabla" class="hidden md:block overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-slate-950/60 text-slate-400 uppercase font-mono tracking-wider border-b border-slate-800">
+                        <tr>
+                            <th scope="col" class="px-5 py-3.5">Turno</th>
+                            <th scope="col" class="px-5 py-3.5">Jerarquía / Nombre y Apellido</th>
+                            <th scope="col" class="px-5 py-3.5">Cédula / Unidad</th>
+                            <th scope="col" class="px-5 py-3.5">Cuota</th>
+                            <th scope="col" class="px-5 py-3.5">Estado</th>
+                            <th scope="col" class="px-5 py-3.5">Referencia / Banco</th>
+                            <th scope="col" class="px-5 py-3.5 text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaParticipantesBody" class="divide-y divide-slate-800/60"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL ADMIN -->
+    <div id="modalAdmin" class="modal fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[60] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="tituloModalAdmin">
+        <form id="formAdmin" class="glass-card border border-slate-700/80 rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl max-h-full overflow-y-auto">
+            <div class="flex justify-between items-center gap-3">
+                <h3 id="tituloModalAdmin" class="font-bold text-white text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-emerald-400" aria-hidden="true"></i> Autenticación de Administrador
+                </h3>
+                <button type="button" onclick="cerrarModalAdmin()" aria-label="Cerrar" class="text-slate-400 hover:text-white rounded"><i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i></button>
+            </div>
+            <p class="text-xs text-slate-400">Ingrese el PIN de seguridad para habilitar la validación de pagos, el cierre de ciclo y la eliminación de integrantes.</p>
+            <div>
+                <label for="inputPinAdmin" class="block text-xs font-semibold text-slate-300 mb-1">PIN de Administrador</label>
+                <input type="password" id="inputPinAdmin" required inputmode="numeric" autocomplete="off" placeholder="••••" aria-describedby="errorPinAdmin" class="campo text-sm font-mono tracking-widest text-center">
+                <p id="errorPinAdmin" role="alert" class="text-xs text-rose-400 mt-1.5 min-h-[1rem]"></p>
+            </div>
+            <div class="flex justify-end gap-2">
+                <button type="button" onclick="cerrarModalAdmin()" class="px-4 py-2.5 bg-slate-800 text-slate-300 text-xs font-semibold rounded-xl hover:bg-slate-700">Cancelar</button>
+                <button type="button" data-enviar class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-emerald-900/30">Acceder</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- MODAL REGISTRO -->
+    <div id="modalRegistro" class="modal fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[60] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="tituloModalRegistro">
+        <div class="glass-card border border-slate-700/80 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl max-h-full overflow-y-auto">
+            <div class="flex justify-between items-center gap-3">
+                <h3 id="tituloModalRegistro" class="font-bold text-white text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-emerald-400" aria-hidden="true"></i> Registro en el Susu FANB
+                </h3>
+                <button type="button" onclick="cerrarModalRegistro()" aria-label="Cerrar" class="text-slate-400 hover:text-white rounded"><i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i></button>
+            </div>
+            <form id="formRegistro" class="space-y-3 text-xs">
+                <div>
+                    <label for="regJerarquia" class="block font-semibold text-slate-300 mb-1">Jerarquía / Grado</label>
+                    <select id="regJerarquia" required class="campo">
+                        <option value="">Seleccione jerarquía...</option>
+                        <option value="General de División">General de División</option>
+                        <option value="General de Brigada">General de Brigada</option>
+                        <option value="Coronel">Coronel</option>
+                        <option value="Teniente Coronel">Teniente Coronel</option>
+                        <option value="Mayor">Mayor</option>
+                        <option value="Capitán">Capitán</option>
+                        <option value="Primer Teniente">Primer Teniente</option>
+                        <option value="Teniente">Teniente</option>
+                        <option value="Sargento Supervisor">Sargento Supervisor</option>
+                        <option value="Sargento Ayudante">Sargento Ayudante</option>
+                        <option value="Sargento Mayor de Primera">Sargento Mayor de Primera</option>
+                        <option value="Sargento Mayor de Segunda">Sargento Mayor de Segunda</option>
+                        <option value="Sargento Mayor de Tercera">Sargento Mayor de Tercera</option>
+                        <option value="Sargento Primero">Sargento Primero</option>
+                        <option value="Sargento Segundo">Sargento Segundo</option>
+                        <option value="Civil / Invitado">Civil / Invitado</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="regNombre" class="block font-semibold text-slate-300 mb-1">Nombre y Apellido</label>
+                    <input type="text" id="regNombre" required maxlength="60" autocomplete="name" placeholder="Ej. Juan Pérez" class="campo">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-2">
+                    <div>
+                        <label for="regCedula" class="block font-semibold text-slate-300 mb-1">Cédula de Identidad</label>
+                        <input type="text" id="regCedula" required maxlength="12" pattern="([VEve]-?)?[0-9]{6,9}" title="Ejemplo: V-25123456" placeholder="Ej. V-25123456" class="campo">
+                    </div>
+                    <div>
+                        <label for="regTelefono" class="block font-semibold text-slate-300 mb-1">Teléfono (WhatsApp)</label>
+                        <input type="tel" id="regTelefono" required inputmode="numeric" maxlength="11" pattern="0[0-9]{10}" title="11 dígitos, ejemplo: 04141234567" autocomplete="tel" placeholder="Ej. 04141234567" class="campo">
+                    </div>
+                </div>
+                <div>
+                    <label for="regUnidad" class="block font-semibold text-slate-300 mb-1">Unidad / Componente</label>
+                    <input type="text" id="regUnidad" required maxlength="60" placeholder="Ej. CZGNB-52 / Comandancia" class="campo">
+                </div>
+                <div>
+                    <label for="regTurno" class="block font-semibold text-slate-300 mb-1">Número de Turno en el Susu (1 al 20)</label>
+                    <select id="regTurno" required class="campo">
+                        <option value="">Seleccione turno disponible...</option>
+                    </select>
+                </div>
+                <p id="errorRegistro" role="alert" class="text-rose-400 min-h-[1rem]"></p>
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="cerrarModalRegistro()" class="px-4 py-2.5 bg-slate-800 text-slate-300 font-semibold rounded-xl hover:bg-slate-700">Cancelar</button>
+                    <button type="button" data-enviar class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-emerald-900/30">Completar Inscripción</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL PAGO -->
+    <div id="modalPago" class="modal fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[60] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="tituloModalPago">
+        <div class="glass-card border border-slate-700/80 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl text-xs max-h-full overflow-y-auto">
+            <div class="flex justify-between items-center gap-3">
+                <h3 id="tituloModalPago" class="font-bold text-white text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-receipt text-emerald-400" aria-hidden="true"></i> Reportar / Gestionar Pago
+                </h3>
+                <button type="button" onclick="cerrarModalPago()" aria-label="Cerrar" class="text-slate-400 hover:text-white rounded"><i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i></button>
+            </div>
+            <div id="infoPagoParticipante" class="bg-slate-900/90 border border-slate-800 p-3.5 rounded-2xl space-y-1 text-slate-300 break-words"></div>
+            <form id="formReportarPago" class="space-y-3">
+                <input type="hidden" id="pagoIdParticipante">
+                <div>
+                    <label for="pagoBanco" class="block font-semibold text-slate-300 mb-1">Banco emisor</label>
+                    <input type="text" id="pagoBanco" list="listaBancos" maxlength="40" placeholder="Ej. Banesco" class="campo">
+                    <datalist id="listaBancos">
+                        <option value="Banesco"></option>
+                        <option value="Banco de Venezuela"></option>
+                        <option value="Mercantil"></option>
+                        <option value="Provincial"></option>
+                        <option value="BNC"></option>
+                        <option value="Bicentenario"></option>
+                        <option value="Banco del Tesoro"></option>
+                        <option value="Bancamiga"></option>
+                        <option value="BANFANB"></option>
+                    </datalist>
+                </div>
+                <div>
+                    <label for="pagoReferencia" class="block font-semibold text-slate-300 mb-1">Número de referencia</label>
+                    <input type="text" id="pagoReferencia" inputmode="numeric" maxlength="20" pattern="[0-9]{4,20}" title="Solo números, mínimo 4 dígitos" placeholder="Ej. 00451287" class="campo font-mono">
+                </div>
+                <div>
+                    <label for="pagoEstado" class="block font-semibold text-slate-300 mb-1">Estado del pago</label>
+                    <select id="pagoEstado" aria-describedby="pagoAyuda" class="campo">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Solvente">Solvente</option>
+                        <option value="Mora">Mora</option>
+                    </select>
+                    <p id="pagoAyuda" class="text-slate-400 mt-1.5"></p>
+                </div>
+                <div class="flex justify-end gap-2 pt-1">
+                    <button type="button" onclick="cerrarModalPago()" class="px-4 py-2.5 bg-slate-800 text-slate-300 font-semibold rounded-xl hover:bg-slate-700">Cancelar</button>
+                    <button type="button" data-enviar id="btnGuardarPago" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg shadow-emerald-900/30">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL WHATSAPP -->
+    <div id="modalWhatsApp" class="modal fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[60] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="tituloModalWhatsApp">
+        <div class="glass-card border border-slate-700/80 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl text-xs max-h-full overflow-y-auto">
+            <div class="flex justify-between items-center gap-3">
+                <h3 id="tituloModalWhatsApp" class="font-bold text-white text-sm flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-emerald-400" aria-hidden="true"></i> Relación para WhatsApp
+                </h3>
+                <button type="button" onclick="cerrarModalWhatsApp()" aria-label="Cerrar" class="text-slate-400 hover:text-white rounded"><i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i></button>
+            </div>
+            <div>
+                <label for="textoRelacion" class="block font-semibold text-slate-300 mb-1">Vista previa del mensaje</label>
+                <textarea id="textoRelacion" readonly rows="9" class="campo font-mono leading-relaxed resize-none"></textarea>
+            </div>
+            <div class="flex flex-wrap justify-end gap-2">
+                <button type="button" onclick="copiarRelacion()" class="px-4 py-2.5 bg-slate-800 text-slate-200 font-semibold rounded-xl hover:bg-slate-700">
+                    <i class="fa-solid fa-copy mr-1" aria-hidden="true"></i> Copiar texto
+                </button>
+                <a id="enlaceWhatsApp" href="https://api.whatsapp.com/send" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-emerald-900/30">
+                    <i class="fa-brands fa-whatsapp mr-1" aria-hidden="true"></i> Abrir en WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMACIÓN -->
+    <div id="modalConfirmar" class="modal fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[70] hidden items-center justify-center p-4" role="alertdialog" aria-modal="true" aria-labelledby="tituloModalConfirmar" aria-describedby="textoConfirmar">
+        <div class="glass-card border border-slate-700/80 rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-xs">
+            <h3 id="tituloModalConfirmar" class="font-bold text-white text-sm flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-amber-400" aria-hidden="true"></i> Confirmar acción
+            </h3>
+            <p id="textoConfirmar" class="text-slate-300 leading-relaxed break-words"></p>
+            <div class="flex justify-end gap-2">
+                <button type="button" id="btnCancelarConfirmar" onclick="cerrarModal('modalConfirmar')" class="px-4 py-2.5 bg-slate-800 text-slate-300 font-semibold rounded-xl hover:bg-slate-700">Cancelar</button>
+                <button type="button" id="btnAceptarConfirmar" onclick="aceptarConfirmacion()" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-semibold rounded-xl">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="aviso" role="status" aria-live="polite" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[80] w-max max-w-[90vw] px-4 py-3 rounded-2xl text-xs font-semibold shadow-2xl border opacity-0 pointer-events-none transition-opacity"></div>
+
+    <script>
+        const CLAVE_STORAGE = 'susu_fanb_datos';
+        const VALOR_CUOTA = 20;
+        const TOTAL_TURNOS = 20;
+        const PIN_ADMIN = '1234';
+        const SIN_BANCO = 'Sin registrar';
+        const SIN_REFERENCIA = '0000';
+        const ESTADOS_VALIDOS = ['Pendiente', 'Solvente', 'Mora'];
+        const SALTO = String.fromCharCode(10);
+        const ENTIDADES_HTML = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+
+        let estado = cargarStorage();
+        let esAdmin = false;
+        let ultimoFoco = null;
+        let accionPendiente = null;
+        let temporizadorAviso = null;
+
+        /* ---------- Utilidades ---------- */
+
+        function esc(valor) {
+            return String(valor == null ? '' : valor).replace(/[&<>"']/g, (c) => ENTIDADES_HTML[c]);
+        }
+
+        function generarId() {
+            if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+            return 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+        }
+
+        function formatoMonto(monto) {
+            return '$' + monto.toFixed(2);
+        }
+
+        function nombreCompleto(p) {
+            return (p.jerarquia + ' ' + p.nombre).trim();
+        }
+
+        function claveCedula(cedula) {
+            return String(cedula).toUpperCase().replace(/[^0-9]/g, '');
+        }
+
+        function buscarParticipante(id) {
+            return estado.participantes.find((p) => p.id === id);
+        }
+
+        function pagoReportado(p) {
+            return p.referencia !== SIN_REFERENCIA && p.referencia !== '';
+        }
+
+        function mostrarAviso(mensaje, tipo) {
+            const aviso = document.getElementById('aviso');
+            const colores = tipo === 'error'
+                ? 'bg-rose-950 text-rose-100 border-rose-500/50'
+                : 'bg-emerald-950 text-emerald-100 border-emerald-500/50';
+            aviso.className = 'fixed bottom-4 left-1/2 -translate-x-1/2 z-[80] w-max max-w-[90vw] px-4 py-3 rounded-2xl text-xs font-semibold shadow-2xl border pointer-events-none transition-opacity opacity-100 ' + colores;
+            aviso.textContent = mensaje;
+            clearTimeout(temporizadorAviso);
+            temporizadorAviso = setTimeout(() => {
+                aviso.classList.remove('opacity-100');
+                aviso.classList.add('opacity-0');
+            }, 3500);
+        }
+
+        /* ---------- Persistencia ---------- */
+
+        function normalizarParticipante(p) {
+            return {
+                id: p && p.id ? String(p.id) : generarId(),
+                turno: Number(p && p.turno) || 0,
+                jerarquia: String((p && p.jerarquia) || ''),
+                nombre: String((p && p.nombre) || ''),
+                cedula: String((p && p.cedula) || ''),
+                telefono: String((p && p.telefono) || ''),
+                unidad: String((p && p.unidad) || ''),
+                estado: p && ESTADOS_VALIDOS.includes(p.estado) ? p.estado : 'Pendiente',
+                banco: String((p && p.banco) || SIN_BANCO),
+                referencia: String((p && p.referencia) || SIN_REFERENCIA)
+            };
+        }
+
+        function cargarStorage() {
+            const base = { participantes: [], quincenaActual: 16, turnoActual: 1 };
+            try {
+                const crudo = localStorage.getItem(CLAVE_STORAGE);
+                if (!crudo) return base;
+                const datos = JSON.parse(crudo);
+                const lista = Array.isArray(datos) ? datos : datos.participantes;
+                const turno = Math.trunc(Number(datos.turnoActual));
+                return {
+                    participantes: (Array.isArray(lista) ? lista : [])
+                        .map(normalizarParticipante)
+                        .sort((a, b) => a.turno - b.turno),
+                    quincenaActual: Number(datos.quincenaActual) === 30 ? 30 : 16,
+                    turnoActual: turno >= 1 && turno <= TOTAL_TURNOS ? turno : 1
+                };
+            } catch (error) {
+                return base;
+            }
+        }
+
+        function guardarStorage() {
+            try {
+                localStorage.setItem(CLAVE_STORAGE, JSON.stringify(estado));
+                return true;
+            } catch (error) {
+                mostrarAviso('No se pudo guardar en este dispositivo.', 'error');
+                return false;
+            }
+        }
+
+        /* ---------- Modales ---------- */
+
+        function abrirModal(id, idFoco) {
+            ultimoFoco = document.activeElement;
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            const foco = idFoco ? document.getElementById(idFoco) : null;
+            if (foco) foco.focus();
+        }
+
+        function cerrarModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            if (ultimoFoco && document.contains(ultimoFoco)) ultimoFoco.focus();
+            ultimoFoco = null;
+        }
+
+        function pedirConfirmacion(mensaje, textoBoton, alConfirmar) {
+            accionPendiente = alConfirmar;
+            document.getElementById('textoConfirmar').textContent = mensaje;
+            document.getElementById('btnAceptarConfirmar').textContent = textoBoton;
+            abrirModal('modalConfirmar', 'btnCancelarConfirmar');
+        }
+
+        function aceptarConfirmacion() {
+            const accion = accionPendiente;
+            accionPendiente = null;
+            cerrarModal('modalConfirmar');
+            if (typeof accion === 'function') accion();
+        }
+
+        document.addEventListener('keydown', (evento) => {
+            if (evento.key !== 'Escape') return;
+            const abiertos = document.querySelectorAll('.modal:not(.hidden)');
+            if (abiertos.length) cerrarModal(abiertos[abiertos.length - 1].id);
+        });
+
+        /* ---------- Administrador ---------- */
+
+        function abrirModalAdmin() {
+            if (esAdmin) {
+                mostrarAviso('La sesión de administrador ya está activa.');
+                return;
+            }
+            document.getElementById('inputPinAdmin').value = '';
+            document.getElementById('errorPinAdmin').textContent = '';
+            abrirModal('modalAdmin', 'inputPinAdmin');
+        }
+
+        function cerrarModalAdmin() {
+            cerrarModal('modalAdmin');
+        }
+
+        function verificarPinAdmin() {
+            const campo = document.getElementById('inputPinAdmin');
+            if (campo.value.trim() !== PIN_ADMIN) {
+                document.getElementById('errorPinAdmin').textContent = 'PIN incorrecto. Intente de nuevo.';
+                campo.value = '';
+                campo.focus();
+                return;
+            }
+            esAdmin = true;
+            cerrarModalAdmin();
+            actualizarEstadoAdminUI();
+            renderizarApp();
+            mostrarAviso('Sesión de administrador iniciada.');
+        }
+
+        function cerrarSesionAdmin() {
+            esAdmin = false;
+            actualizarEstadoAdminUI();
+            renderizarApp();
+            mostrarAviso('Sesión de administrador cerrada.');
+        }
+
+        function actualizarEstadoAdminUI() {
+            const controles = document.getElementById('adminControlsContainer');
+            controles.classList.toggle('hidden', !esAdmin);
+            controles.classList.toggle('flex', esAdmin);
+            const icono = document.getElementById('iconAdminState');
+            icono.classList.toggle('fa-lock', !esAdmin);
+            icono.classList.toggle('fa-lock-open', esAdmin);
+            document.getElementById('textAdminState').textContent = esAdmin ? 'Admin activo' : 'Admin';
+            document.getElementById('btnAdminLabel').setAttribute('aria-label', esAdmin ? 'Administrador activo' : 'Acceso de administrador');
+        }
+
+        /* ---------- Ciclo ---------- */
+
+        function cambiarQuincena(quincena) {
+            estado.quincenaActual = quincena === 30 ? 30 : 16;
+            guardarStorage();
+            renderizarApp();
+        }
+
+        function cerrarCiclo() {
+            if (!esAdmin) {
+                mostrarAviso('Debe iniciar sesión como Administrador.', 'error');
+                return;
+            }
+            const siguienteTurno = (estado.turnoActual % TOTAL_TURNOS) + 1;
+            const siguienteQuincena = estado.quincenaActual === 16 ? 30 : 16;
+            pedirConfirmacion(
+                `¿Cerrar la Quincena ${estado.quincenaActual}? El turno en curso pasará al #${siguienteTurno} y los pagos solventes volverán a Pendiente.`,
+                'Cerrar ciclo',
+                () => {
+                    estado.participantes.forEach((p) => {
+                        if (p.estado === 'Solvente') {
+                            p.estado = 'Pendiente';
+                            p.banco = SIN_BANCO;
+                            p.referencia = SIN_REFERENCIA;
+                        }
+                    });
+                    estado.turnoActual = siguienteTurno;
+                    estado.quincenaActual = siguienteQuincena;
+                    guardarStorage();
+                    renderizarApp();
+                    mostrarAviso(`Ciclo cerrado. Turno en curso: #${siguienteTurno}.`);
+                }
+            );
+        }
+
+        /* ---------- Registro ---------- */
+
+        function turnosDisponibles() {
+            const ocupados = new Set(estado.participantes.map((p) => p.turno));
+            const libres = [];
+            for (let turno = 1; turno <= TOTAL_TURNOS; turno++) {
+                if (!ocupados.has(turno)) libres.push(turno);
+            }
+            return libres;
+        }
+
+        function abrirModalRegistro() {
+            const libres = turnosDisponibles();
+            if (!libres.length) {
+                mostrarAviso('Los 20 turnos del susu ya están ocupados.', 'error');
+                return;
+            }
+            const selector = document.getElementById('regTurno');
+            selector.innerHTML = '<option value="">Seleccione turno disponible...</option>' +
+                libres.map((turno) => `<option value="${turno}">Turno #${turno}</option>`).join('');
+            document.getElementById('errorRegistro').textContent = '';
+            abrirModal('modalRegistro', 'regJerarquia');
+        }
+
+        function cerrarModalRegistro() {
+            cerrarModal('modalRegistro');
+        }
+
+        function registrarParticipante() {
+            const error = document.getElementById('errorRegistro');
+            const nuevo = {
+                id: generarId(),
+                turno: Number(document.getElementById('regTurno').value),
+                jerarquia: document.getElementById('regJerarquia').value,
+                nombre: document.getElementById('regNombre').value.trim(),
+                cedula: document.getElementById('regCedula').value.trim().toUpperCase(),
+                telefono: document.getElementById('regTelefono').value.trim(),
+                unidad: document.getElementById('regUnidad').value.trim(),
+                estado: 'Pendiente',
+                banco: SIN_BANCO,
+                referencia: SIN_REFERENCIA
+            };
+
+            if (!nuevo.nombre || !nuevo.unidad) {
+                error.textContent = 'Complete el nombre y la unidad.';
+                return;
+            }
+            if (!Number.isInteger(nuevo.turno) || nuevo.turno < 1 || nuevo.turno > TOTAL_TURNOS) {
+                error.textContent = 'Seleccione un turno válido.';
+                return;
+            }
+            if (estado.participantes.some((p) => p.turno === nuevo.turno)) {
+                error.textContent = `El turno #${nuevo.turno} ya fue tomado. Elija otro.`;
+                return;
+            }
+            if (estado.participantes.some((p) => claveCedula(p.cedula) === claveCedula(nuevo.cedula))) {
+                error.textContent = 'Ya existe un integrante con esa cédula.';
+                return;
+            }
+
+            estado.participantes.push(nuevo);
+            estado.participantes.sort((a, b) => a.turno - b.turno);
+            guardarStorage();
+            document.getElementById('formRegistro').reset();
+            cerrarModalRegistro();
+            renderizarApp();
+            mostrarAviso('¡Inscripción realizada con éxito!');
+        }
+
+        /* ---------- Pagos ---------- */
+
+        function abrirModalPago(id) {
+            const p = buscarParticipante(id);
+            if (!p) return;
+            const bloqueado = !esAdmin && p.estado === 'Solvente';
+
+            document.getElementById('pagoIdParticipante').value = p.id;
+            document.getElementById('infoPagoParticipante').innerHTML = `
+                <p><strong>Participante:</strong> ${esc(nombreCompleto(p))}</p>
+                <p><strong>Cédula:</strong> ${esc(p.cedula)} | <strong>Turno:</strong> #${esc(p.turno)}</p>
+                <p><strong>Cuota:</strong> ${formatoMonto(VALOR_CUOTA)}</p>
+            `;
+
+            const banco = document.getElementById('pagoBanco');
+            const referencia = document.getElementById('pagoReferencia');
+            const selectorEstado = document.getElementById('pagoEstado');
+            banco.value = p.banco !== SIN_BANCO ? p.banco : '';
+            referencia.value = pagoReportado(p) ? p.referencia : '';
+            selectorEstado.value = p.estado;
+
+            banco.disabled = bloqueado;
+            referencia.disabled = bloqueado;
+            banco.required = !esAdmin;
+            referencia.required = !esAdmin;
+            selectorEstado.disabled = !esAdmin;
+            document.getElementById('btnGuardarPago').disabled = bloqueado;
+            document.getElementById('btnGuardarPago').textContent = esAdmin ? 'Guardar cambios' : 'Reportar pago';
+
+            let ayuda = 'Solo el administrador puede cambiar el estado. Su pago quedará por validar.';
+            if (esAdmin) ayuda = 'Como administrador puede validar el pago o marcar la mora.';
+            if (bloqueado) ayuda = 'Este pago ya fue validado por el administrador.';
+            document.getElementById('pagoAyuda').textContent = ayuda;
+
+            abrirModal('modalPago', bloqueado ? null : 'pagoBanco');
+        }
+
+        function cerrarModalPago() {
+            cerrarModal('modalPago');
+        }
+
+        function guardarPago() {
+            const p = buscarParticipante(document.getElementById('pagoIdParticipante').value);
+            if (!p || (!esAdmin && p.estado === 'Solvente')) {
+                cerrarModalPago();
+                return;
+            }
+            p.banco = document.getElementById('pagoBanco').value.trim() || SIN_BANCO;
+            p.referencia = document.getElementById('pagoReferencia').value.trim() || SIN_REFERENCIA;
+            if (esAdmin) p.estado = document.getElementById('pagoEstado').value;
+
+            guardarStorage();
+            cerrarModalPago();
+            renderizarApp();
+            mostrarAviso(esAdmin ? 'Pago actualizado.' : 'Pago reportado. El administrador lo validará.');
+        }
+
+        function eliminarParticipante(id) {
+            if (!esAdmin) {
+                mostrarAviso('Debe iniciar sesión como Administrador para eliminar integrantes.', 'error');
+                return;
+            }
+            const p = buscarParticipante(id);
+            if (!p) return;
+            pedirConfirmacion(`¿Está seguro de eliminar a ${nombreCompleto(p)} (Turno #${p.turno})?`, 'Eliminar', () => {
+                estado.participantes = estado.participantes.filter((otro) => otro.id !== id);
+                guardarStorage();
+                renderizarApp();
+                mostrarAviso('Integrante eliminado.');
+            });
+        }
+
+        /* ---------- Respaldo y WhatsApp ---------- */
+
+        function exportarDatos() {
+            if (!esAdmin) return;
+            const archivo = new Blob([JSON.stringify(estado, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(archivo);
+            const enlace = document.createElement('a');
+            enlace.href = url;
+            enlace.download = 'respaldo_susu_fanb.json';
+            document.body.appendChild(enlace);
+            enlace.click();
+            enlace.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        function generarRelacionWhatsApp() {
+            if (!estado.participantes.length) {
+                mostrarAviso('Aún no hay integrantes para generar la relación.', 'error');
+                return;
+            }
+            const lineas = [
+                '*📊 RELACIÓN OFICIAL - SUSU QUINCENAL FANB*',
+                `📅 Ciclo: *Quincena ${estado.quincenaActual}* | Turno en curso: *#${estado.turnoActual}*`,
+                ''
+            ];
+            estado.participantes.forEach((p, indice) => {
+                const icono = p.estado === 'Solvente' ? '✅' : (p.estado === 'Mora' ? '🚨' : '⏳');
+                lineas.push(`${indice + 1}. *Turno #${p.turno}* - ${nombreCompleto(p)}`);
+                lineas.push(`   Estado: ${icono} ${p.estado} | Ref: ${p.referencia}`);
+            });
+            const texto = lineas.join(SALTO);
+
+            document.getElementById('textoRelacion').value = texto;
+            document.getElementById('enlaceWhatsApp').href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(texto);
+            abrirModal('modalWhatsApp', 'textoRelacion');
+        }
+
+        function cerrarModalWhatsApp() {
+            cerrarModal('modalWhatsApp');
+        }
+
+        async function copiarRelacion() {
+            const area = document.getElementById('textoRelacion');
+            try {
+                await navigator.clipboard.writeText(area.value);
+                mostrarAviso('Relación copiada.');
+            } catch (error) {
+                area.focus();
+                area.select();
+                let copiado = false;
+                try { copiado = document.execCommand('copy'); } catch (fallo) { copiado = false; }
+                mostrarAviso(copiado ? 'Relación copiada.' : 'Seleccione el texto y cópielo manualmente.', copiado ? 'ok' : 'error');
+            }
+        }
+
+        /* ---------- Render ---------- */
+
+        function infoEstado(p) {
+            if (p.estado === 'Solvente') return { texto: 'Solvente', clases: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' };
+            if (p.estado === 'Mora') return { texto: 'Mora', clases: 'bg-rose-500/20 text-rose-300 border-rose-500/30' };
+            return { texto: pagoReportado(p) ? 'Por validar' : 'Pendiente', clases: 'bg-amber-500/20 text-amber-300 border-amber-500/30' };
+        }
+
+        function insigniaEstado(p) {
+            const info = infoEstado(p);
+            return `<span class="inline-block whitespace-nowrap px-2.5 py-1 rounded-full text-[11px] font-bold border uppercase tracking-wider ${info.clases}">${info.texto}</span>`;
+        }
+
+        function insigniaCobra(p) {
+            if (p.turno !== estado.turnoActual) return '';
+            return '<span class="ml-1.5 align-middle text-[11px] font-sans font-bold text-emerald-200 bg-emerald-500/20 border border-emerald-500/30 px-1.5 py-0.5 rounded-md">Cobra</span>';
+        }
+
+        function botonesAccion(p, conTexto) {
+            const nombre = esc(nombreCompleto(p));
+            const etiquetaPago = esAdmin ? 'Gestionar pago' : 'Reportar pago';
+            const base = 'px-3 py-2 rounded-xl font-semibold transition';
+            let html = `<button type="button" data-accion="pago" data-id="${esc(p.id)}" aria-label="${etiquetaPago} de ${nombre}" class="${base} bg-slate-800 hover:bg-slate-700 text-slate-200 ${conTexto ? 'flex-1' : ''}">
+                <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>${conTexto ? ' ' + etiquetaPago : ''}
+            </button>`;
+            if (esAdmin) {
+                html += `<button type="button" data-accion="eliminar" data-id="${esc(p.id)}" aria-label="Eliminar a ${nombre}" class="${base} bg-rose-600/20 hover:bg-rose-600/40 text-rose-300">
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i>${conTexto ? ' Eliminar' : ''}
+                </button>`;
+            }
+            return html;
+        }
+
+        function filaTabla(p) {
+            return `<tr class="hover:bg-slate-900/40 transition">
+                <td class="px-5 py-4 font-mono font-bold text-emerald-400 whitespace-nowrap">#${esc(p.turno)}${insigniaCobra(p)}</td>
+                <td class="px-5 py-4">
+                    <div class="font-bold text-white">${esc(nombreCompleto(p))}</div>
+                    <div class="text-slate-400">${esc(p.telefono)}</div>
+                </td>
+                <td class="px-5 py-4">
+                    <div class="font-mono text-slate-300">${esc(p.cedula)}</div>
+                    <div class="text-slate-400">${esc(p.unidad)}</div>
+                </td>
+                <td class="px-5 py-4 font-mono font-semibold text-white">${formatoMonto(VALOR_CUOTA)}</td>
+                <td class="px-5 py-4">${insigniaEstado(p)}</td>
+                <td class="px-5 py-4 font-mono text-slate-300">
+                    <div>${esc(p.referencia)}</div>
+                    <div class="text-slate-400">${esc(p.banco)}</div>
+                </td>
+                <td class="px-5 py-4 text-right whitespace-nowrap space-x-1">${botonesAccion(p, false)}</td>
+            </tr>`;
+        }
+
+        function tarjetaMovil(p) {
+            return `<li class="p-4 space-y-3 text-xs">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <p class="font-mono font-bold text-emerald-400">Turno #${esc(p.turno)}${insigniaCobra(p)}</p>
+                        <p class="font-bold text-white text-sm break-words mt-0.5">${esc(nombreCompleto(p))}</p>
+                        <p class="text-slate-400">${esc(p.telefono)}</p>
+                    </div>
+                    <div class="shrink-0">${insigniaEstado(p)}</div>
+                </div>
+                <dl class="grid grid-cols-2 gap-x-3 gap-y-2">
+                    <div class="min-w-0"><dt class="text-slate-400">Cédula</dt><dd class="font-mono text-slate-200 break-words">${esc(p.cedula)}</dd></div>
+                    <div class="min-w-0"><dt class="text-slate-400">Unidad</dt><dd class="text-slate-200 break-words">${esc(p.unidad)}</dd></div>
+                    <div class="min-w-0"><dt class="text-slate-400">Cuota</dt><dd class="font-mono font-semibold text-white">${formatoMonto(VALOR_CUOTA)}</dd></div>
+                    <div class="min-w-0"><dt class="text-slate-400">Referencia / Banco</dt><dd class="font-mono text-slate-200 break-words">${esc(p.referencia)} · ${esc(p.banco)}</dd></div>
+                </dl>
+                <div class="flex gap-2">${botonesAccion(p, true)}</div>
+            </li>`;
+        }
+
+        function pintarBotonQuincena(id, activo) {
+            const boton = document.getElementById(id);
+            boton.className = 'flex-1 py-2 text-xs font-bold rounded-xl transition ' +
+                (activo ? 'bg-emerald-600 text-white shadow-md' : 'bg-slate-800 text-slate-300 border border-slate-700/50 hover:bg-slate-700');
+            boton.setAttribute('aria-pressed', activo ? 'true' : 'false');
+        }
+
+        function renderizarApp() {
+            const lista = estado.participantes;
+            let solventes = 0;
+            let pendientes = 0;
+            let moras = 0;
+
+            lista.forEach((p) => {
+                if (p.estado === 'Solvente') solventes++;
+                else if (p.estado === 'Mora') moras++;
+                else pendientes++;
+            });
+
+            document.getElementById('tablaParticipantesBody').innerHTML = lista.map(filaTabla).join('');
+            document.getElementById('listaParticipantesMovil').innerHTML = lista.map(tarjetaMovil).join('');
+
+            const vacio = lista.length === 0;
+            document.getElementById('estadoVacio').classList.toggle('hidden', !vacio);
+            document.getElementById('listaParticipantesMovil').classList.toggle('hidden', vacio);
+            document.getElementById('contenedorTabla').classList.toggle('md:block', !vacio);
+
+            document.getElementById('lblTotalParticipantes').textContent = `${lista.length} de ${TOTAL_TURNOS} inscritos`;
+            document.getElementById('lblPoteTotal').textContent = formatoMonto(solventes * VALOR_CUOTA);
+            document.getElementById('lblSolventesCount').textContent = solventes;
+            document.getElementById('lblPendientesCount').textContent = pendientes;
+            document.getElementById('lblMorasCount').textContent = moras;
+
+            document.getElementById('lblQuincenaActiva').textContent = `Quincena ${estado.quincenaActual}`;
+            document.getElementById('lblTurnoActual').textContent = `#${estado.turnoActual} de ${TOTAL_TURNOS}`;
+            pintarBotonQuincena('btnQ16', estado.quincenaActual === 16);
+            pintarBotonQuincena('btnQ30', estado.quincenaActual === 30);
+
+            const beneficiario = lista.find((p) => p.turno === estado.turnoActual);
+            document.getElementById('lblBeneficiarioTurno').textContent = beneficiario
+                ? `${nombreCompleto(beneficiario)} (Turno #${beneficiario.turno})`
+                : 'Sin asignar';
+        }
+
+        document.getElementById('listaIntegrantes').addEventListener('click', (evento) => {
+            const boton = evento.target.closest('button[data-accion]');
+            if (!boton) return;
+            if (boton.dataset.accion === 'pago') abrirModalPago(boton.dataset.id);
+            if (boton.dataset.accion === 'eliminar') eliminarParticipante(boton.dataset.id);
+        });
+
+        /* Los envíos se manejan con clic y Enter porque los visores en iframe
+           con sandbox bloquean el evento submit de los formularios. */
+        function conectarFormulario(idFormulario, manejador) {
+            const formulario = document.getElementById(idFormulario);
+            const enviar = () => {
+                if (formulario.reportValidity()) manejador();
+            };
+            formulario.addEventListener('submit', (evento) => evento.preventDefault());
+            formulario.querySelector('[data-enviar]').addEventListener('click', enviar);
+            formulario.addEventListener('keydown', (evento) => {
+                if (evento.key !== 'Enter' || evento.isComposing || evento.keyCode === 229) return;
+                if (evento.target.tagName !== 'INPUT') return;
+                evento.preventDefault();
+                enviar();
+            });
+        }
+
+        conectarFormulario('formAdmin', verificarPinAdmin);
+        conectarFormulario('formRegistro', registrarParticipante);
+        conectarFormulario('formReportarPago', guardarPago);
+
+        renderizarApp();
+        actualizarEstadoAdminUI();
+    </script>
+</body>
+</html>
